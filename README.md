@@ -25,7 +25,7 @@ Find Package-Management Console in your Visual Studio and run
 ```
 
 
-## Environment Variables
+## Default users (login | password)
 
 Default created users:
 - Admin (admin@example.com | password)

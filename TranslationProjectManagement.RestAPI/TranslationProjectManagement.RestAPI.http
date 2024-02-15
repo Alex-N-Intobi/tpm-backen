@@ -1,0 +1,6 @@
+@TranslationProjectManagement.RestAPI_HostAddress = http://localhost:5048
+
+GET {{TranslationProjectManagement.RestAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

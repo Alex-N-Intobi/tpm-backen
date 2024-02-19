@@ -17,6 +17,8 @@ public class ProjectItem : DomainBase
 
     public string Description { get; set; }
 
+    public ProjectItemPriority Priority { get; set; }
+
     public ProjectItemType Type { get; set; }
 
     public ProjectItemStatus Status { get; set; }

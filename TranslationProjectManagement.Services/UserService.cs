@@ -9,6 +9,7 @@ using TranslationProjectManagement.Services.Dtos.Responses;
 using TranslationProjectManagement.Services.Interface;
 using Microsoft.Extensions.Configuration;
 using TranslationProjectManagement.Repositories.Base.Interfaces;
+using TranslationProjectManagement.Services.Dtos;
 
 namespace TranslationProjectManagement.Services;
 
@@ -31,6 +32,17 @@ public class UserService : IUserService
     {
         string userId = _identityManager.GetCurrentApplicationUserId().ToString();
         return await _userManager.FindByIdAsync(userId);
+    }
+
+    public async Task<IList<LookupFieldDto>> GetLookupFieldsAsync(string role, CancellationToken cancellationToken = default)
+    {
+        IList<User> users = await _userManager.GetUsersInRoleAsync(role);
+        return users.Select(x => new LookupFieldDto() 
+        {
+            Id = x.Id,
+            Name = x.FullName,
+            Description = x.Email
+        }).ToList();
     }
 
     public async Task<TokenResponse> LoginAsync(LoginRequest model, CancellationToken cancellationToken = default)

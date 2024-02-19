@@ -80,5 +80,43 @@ public static class IdentitySeeder
             await _userManager.CreateAsync(translatorUser, "password");
             await _userManager.AddToRoleAsync(translatorUser, "Translator");
         }
+
+        User translatorUser2 = new()
+        {
+            FullName = "Translator TWO",
+            Email = "translator2@example.com",
+            NormalizedEmail = "TRANSLATOR2@EXAMPLE.COM",
+            UserName = "translator2@example.com",
+            NormalizedUserName = "TRANSLATOR2@EXAMPLE.COM",
+            PhoneNumber = "+111111111111",
+            EmailConfirmed = true,
+            PhoneNumberConfirmed = true,
+            SecurityStamp = Guid.NewGuid().ToString("D")
+        };
+
+        if (!context.Users.Any(u => u.UserName == translatorUser2.UserName))
+        {
+            await _userManager.CreateAsync(translatorUser2, "password");
+            await _userManager.AddToRoleAsync(translatorUser2, "Translator");
+        }
+
+        User translatorUser3 = new()
+        {
+            FullName = "Translator THREE",
+            Email = "translator3@example.com",
+            NormalizedEmail = "TRANSLATOR3@EXAMPLE.COM",
+            UserName = "translator3@example.com",
+            NormalizedUserName = "TRANSLATOR3@EXAMPLE.COM",
+            PhoneNumber = "+111111111111",
+            EmailConfirmed = true,
+            PhoneNumberConfirmed = true,
+            SecurityStamp = Guid.NewGuid().ToString("D")
+        };
+
+        if (!context.Users.Any(u => u.UserName == translatorUser3.UserName))
+        {
+            await _userManager.CreateAsync(translatorUser3, "password");
+            await _userManager.AddToRoleAsync(translatorUser3, "Translator");
+        }
     }
 }

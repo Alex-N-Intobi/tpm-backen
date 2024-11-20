@@ -1,0 +1,6 @@
+@IBKS.RestAPI_HostAddress = http://localhost:5048
+
+GET {{IBKS.RestAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -10,6 +10,10 @@ public class TicketReplyConfiguration : IEntityTypeConfiguration<TicketReply>
 	{
 		builder.ToTable(nameof(TicketReply), "Support");
 
+        builder
+        .HasKey(tr => tr.Id);
+
+        builder.Property(e => e.Id).HasColumnName("ReplyId");
         builder.Property(e => e.Tid).HasColumnName("TId");
     }
 }

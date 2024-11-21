@@ -1,9 +1,9 @@
-﻿namespace IBKS.Domains;
+﻿using IBKS.Domains.Base;
 
-public class User
+namespace IBKS.Domains;
+
+public class User : DomainBase<string>
 {
-    public string Oid { get; set; }
-
     public string DisplayName { get; set; }
 
     public string Email { get; set; }
@@ -12,5 +12,5 @@ public class User
 
     public DateTime? LastScannedUtc { get; set; }
 
-    public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+    public ICollection<Ticket> Tickets { get; set; }
 }

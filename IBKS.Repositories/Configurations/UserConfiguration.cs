@@ -10,9 +10,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 	{
 		builder.ToTable(nameof(User), "Support");
 
-        builder.HasKey(e => e.Oid);
+        builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.Oid)
+        builder.Property(e => e.Id)
             .HasMaxLength(50)
             .IsUnicode(false)
             .HasColumnName("OID");

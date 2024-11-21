@@ -5,6 +5,4 @@ namespace IBKS.Contracts;
 public class InstalledEnvironment : ContractBase<int>
 {
     public string Title { get; set; }
-
-    public ICollection<Ticket> Tickets { get; set; }
 }

@@ -284,7 +284,7 @@ public class ServiceBase<TDomain, TKey> : IServiceBase<TDomain, TKey> where TDom
         IList<TDomain> existingEntities = await GetListAsync(x => entityIds.Contains(x.Id), cancellationToken);
 
         List<TDomain> nonExistingEntities = entities
-            .Where(x => existingEntities.SingleOrDefault(y => EqualityComparer<TKey>.Default.Equals(y.Id, x.Id)) == null)
+            .Where(x => existingEntities.SingleOrDefault(y => x.Id.Equals(y.Id)) == null)
             .ToList();
 
         if (nonExistingEntities.Count > 0)

@@ -19,4 +19,8 @@
     <ProjectReference Include="..\IBKS.Domains\IBKS.Domains.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

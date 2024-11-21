@@ -1,19 +1,18 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using IBKS.Contracts.Base;
 using IBKS.Repositories.Base.Options;
 using IBKS.Repositories.Base.Paging;
 using IBKS.RestAPI.Base.Interfaces;
 using IBKS.RestAPI.Mapping.Extensions;
 using IBKS.Services.Base.Interfaces;
+using IBKS.Contracts.Base;
 
 namespace IBKS.RestAPI.Base;
 
-public abstract class ApiControllerBase<TContract, TDomain, TIService> : ApiControllerBase<TIService>, IControllerBase<TContract>
-    where TContract : ContractBase
-    where TDomain : Domains.Base.DomainBase
-    where TIService : IServiceBase<TDomain>, IServiceBase
+public abstract class ApiControllerBase<TContract, TDomain, TIService, TKey> : ApiControllerBase<TIService>, IControllerBase<TContract, TKey>
+    where TContract : ContractBase<TKey>
+    where TDomain : Domains.Base.DomainBase<TKey>
+    where TIService : IServiceBase<TDomain, TKey>, IServiceBase
 {
     public ApiControllerBase(TIService service, IMapper mapper, ILogger<ApiControllerBase> logger) : base(service, mapper, logger) { }
 
@@ -26,8 +25,8 @@ public abstract class ApiControllerBase<TContract, TDomain, TIService> : ApiCont
     }
 
     [HttpGet]
-    [Route("{id:int}")]
-    public async Task<ActionResult<TContract>> GetOne(int id, [FromQuery] RequestOneOptions searchOptions = null, CancellationToken cancellationToken = default)
+    [Route("{id}")]
+    public async Task<ActionResult<TContract>> GetOne(TKey id, [FromQuery] RequestOneOptions searchOptions = null, CancellationToken cancellationToken = default)
     {
         Logger.LogInformation($"Getting {typeof(TDomain)} with Id: {id}.");
         TDomain domain = await Service.GetOneAsync(id, searchOptions, cancellationToken);
@@ -50,8 +49,8 @@ public abstract class ApiControllerBase<TContract, TDomain, TIService> : ApiCont
     }
 
     [HttpPut]
-    [Route("{id:int}")]
-    public async Task<ActionResult<TContract>> UpdateOne(int id, [FromBody]TContract contract, CancellationToken cancellationToken = default)
+    [Route("{id}")]
+    public async Task<ActionResult<TContract>> UpdateOne(TKey id, [FromBody]TContract contract, CancellationToken cancellationToken = default)
     {
         TDomain domain = Mapper.Map<TDomain>(contract);
         TDomain updated = await Service.UpdateOneAsync(id, domain, cancellationToken);
@@ -60,8 +59,8 @@ public abstract class ApiControllerBase<TContract, TDomain, TIService> : ApiCont
     }
 
     [HttpDelete]
-    [Route("{id:int}")]
-    public async Task<IActionResult> DeleteOne(int id, CancellationToken cancellationToken = default)
+    [Route("{id}")]
+    public async Task<IActionResult> DeleteOne(TKey id, CancellationToken cancellationToken = default)
     {
         await Service.DeleteOneAsync(id, cancellationToken);
 

@@ -2,5 +2,5 @@
 
 public abstract class DomainBase<T>
 {
-    public T Id { get; set; }
+    public virtual T Id { get; set; }
 }

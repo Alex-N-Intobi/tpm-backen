@@ -5,15 +5,15 @@ using IBKS.Repositories.Base.Paging;
 
 namespace IBKS.RestAPI.Base.Interfaces;
 
-public interface IControllerBase<TContract> where TContract : ContractBase
+public interface IControllerBase<TContract, TKey> where TContract : ContractBase<TKey>
 {
     Task<ActionResult<IPageable<TContract>>> GetMany(RequestManyOptions searchOptions = null, CancellationToken cancellationToken = default);
 
-    Task<ActionResult<TContract>> GetOne(int id, RequestOneOptions searchOptions = null, CancellationToken cancellationToken = default);
+    Task<ActionResult<TContract>> GetOne(TKey id, RequestOneOptions searchOptions = null, CancellationToken cancellationToken = default);
 
     Task<ActionResult<TContract>> CreateOne(TContract contract, CancellationToken cancellationToken = default);
 
-    Task<ActionResult<TContract>> UpdateOne(int id, TContract contract, CancellationToken cancellationToken = default);
+    Task<ActionResult<TContract>> UpdateOne(TKey id, TContract contract, CancellationToken cancellationToken = default);
 
-    Task<IActionResult> DeleteOne(int id, CancellationToken cancellationToken = default);
+    Task<IActionResult> DeleteOne(TKey id, CancellationToken cancellationToken = default);
 }

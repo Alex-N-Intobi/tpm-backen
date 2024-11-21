@@ -1,9 +1,9 @@
-﻿namespace IBKS.Domains;
+﻿using IBKS.Domains.Base;
 
-public class TicketReply
+namespace IBKS.Domains;
+
+public class TicketReply: DomainBase<int>
 {
-    public int ReplyId { get; set; }
-
     public long Tid { get; set; }
 
     public string Reply { get; set; }

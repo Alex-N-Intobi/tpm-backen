@@ -1,9 +1,9 @@
-﻿namespace IBKS.Contracts;
+﻿using IBKS.Contracts.Base;
 
-public class TicketReply
+namespace IBKS.Contracts;
+
+public class TicketReply: ContractBase<int>
 {
-    public int ReplyId { get; set; }
-
     public long Tid { get; set; }
 
     public string Reply { get; set; }

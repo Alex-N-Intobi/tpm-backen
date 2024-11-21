@@ -178,14 +178,14 @@ public class GenericRepository<TDomain, TKey, TDbContext> : IGenericRepository<T
 
     public async Task<TDomain> GetOneAsync(TKey id, CancellationToken cancellationToken = default)
     {
-        return await GetOneInternalAsync(x => EqualityComparer<TKey>.Default.Equals(x.Id, id), null, cancellationToken: cancellationToken);
+        return await GetOneInternalAsync(x => x.Id.Equals(id), null, cancellationToken: cancellationToken);
     }
 
     public async Task<TDomain> GetOneAsync(TKey id, IEnumerable<Expression<Func<TDomain, object>>> includes, CancellationToken cancellationToken = default)
     {
         includes = includes ?? throw new ArgumentNullException(nameof(includes));
 
-        return await GetOneInternalAsync(x => EqualityComparer<TKey>.Default.Equals(x.Id, id), includes, cancellationToken);
+        return await GetOneInternalAsync(x => x.Id.Equals(id), includes, cancellationToken);
     }
 
     public async Task<TDomain> GetOneAsync(Expression<Func<TDomain, bool>> filter, CancellationToken cancellationToken = default)
@@ -207,7 +207,7 @@ public class GenericRepository<TDomain, TKey, TDbContext> : IGenericRepository<T
 
     public async Task<bool> HeadOneAsync(TKey id, CancellationToken cancellationToken = default)
     {
-        return await DbSet.AnyAsync(i => EqualityComparer<TKey>.Default.Equals(i.Id, id), cancellationToken);
+        return await DbSet.AnyAsync(i => i.Id.Equals(id), cancellationToken);
     }
 
     public async Task<TDomain> CreateOneAsync(TDomain entity, CancellationToken cancellationToken = default)
@@ -240,7 +240,7 @@ public class GenericRepository<TDomain, TKey, TDbContext> : IGenericRepository<T
 
     public async Task DeleteOneAsync(TKey id, CancellationToken cancellationToken = default)
     {
-        TDomain entity = await DbSet.SingleOrDefaultAsync(x => EqualityComparer<TKey>.Default.Equals(x.Id, id), cancellationToken: cancellationToken);
+        TDomain entity = await DbSet.SingleOrDefaultAsync(x => x.Id.Equals(id), cancellationToken: cancellationToken);
         if (entity == null)
         {
             throw new NotFoundException(nameof(entity));

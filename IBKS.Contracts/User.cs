@@ -1,9 +1,9 @@
-﻿namespace IBKS.Contracts;
+﻿using IBKS.Contracts.Base;
 
-public class User
+namespace IBKS.Contracts;
+
+public class User : ContractBase<string>
 {
-    public string Oid { get; set; }
-
     public string DisplayName { get; set; }
 
     public string Email { get; set; }

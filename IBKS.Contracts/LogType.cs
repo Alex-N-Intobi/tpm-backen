@@ -5,6 +5,4 @@ namespace IBKS.Contracts;
 public class LogType : ContractBase<int>
 {
     public string Title { get; set; }
-
-    public ICollection<TicketEventLog> TicketEventLogs { get; set; }
 }

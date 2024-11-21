@@ -8,6 +8,9 @@ using IBKS.Services.Interface;
 using IBKS.Services;
 using IBKS.RestAPI.Mapping;
 using IBKS.Repositories.Interface;
+using System.Text.Json.Serialization;
+using IBKS.RestAPI.Converters;
+using System.Text.Json;
 
 namespace IBKS.RestAPI;
 
@@ -42,7 +45,13 @@ public class Startup(IConfiguration configuration)
 
         services.AddSwaggerConfiguration();
 
-        services.AddControllers();
+        services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                options.JsonSerializerOptions.NumberHandling = JsonNumberHandling.AllowReadingFromString;
+            });
 
         services.AddCors(options =>
         {
@@ -72,7 +81,8 @@ public class Startup(IConfiguration configuration)
         services.RegisterGenericService<ITicketEventLogService, TicketEventLogService, ITicketEventLogRepository, TicketEventLogRepository>();
         services.RegisterGenericService<ITicketService, TicketService, ITicketRepository, TicketRepository>();
         services.RegisterGenericService<ITicketTypeService, TicketTypeService, ITicketTypeRepository, TicketTypeRepository>();
-
+        services.RegisterGenericService<ITicketReplyService, TicketReplyService, ITicketReplyRepository, TicketReplyRepository>();
+        services.RegisterGenericService<IUserService, UserService, IUserRepository, UserRepository>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
